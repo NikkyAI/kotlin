@@ -19,7 +19,7 @@ import org.jetbrains.kotlin.psi.stubs.ArgumentValueKind
 import org.jetbrains.kotlin.psi.stubs.KotlinValueArgumentStub
 import org.jetbrains.kotlin.psi.stubs.impl.KotlinValueArgumentStubImpl
 
-class KtValueArgumentElementType<T : KtValueArgument>(@NonNls debugName: String, psiClass: Class<T>) :
+class KtConstantExpressionElementType<T : KtValueArgument>(@NonNls debugName: String, psiClass: Class<T>) :
     KtStubElementType<KotlinValueArgumentStub<T>, T>(debugName, psiClass, KotlinValueArgumentStub::class.java) {
 
     override fun createStub(psi: T, parentStub: StubElement<*>?): KotlinValueArgumentStub<T> {

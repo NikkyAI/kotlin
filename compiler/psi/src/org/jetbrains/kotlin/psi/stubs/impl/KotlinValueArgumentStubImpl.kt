@@ -8,7 +8,6 @@ package org.jetbrains.kotlin.psi.stubs.impl
 import com.intellij.psi.PsiElement
 import com.intellij.psi.stubs.StubElement
 import com.intellij.util.io.StringRef
-import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.psi.KtValueArgument
 import org.jetbrains.kotlin.psi.stubs.ArgumentValueKind
 import org.jetbrains.kotlin.psi.stubs.KotlinValueArgumentStub
@@ -16,12 +15,9 @@ import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes
 
 class KotlinValueArgumentStubImpl<T : KtValueArgument>(
     parent: StubElement<out PsiElement>?,
-    private val name: StringRef?,
     private val kind: ArgumentValueKind,
     private val value: StringRef?
 ) : KotlinStubBaseImpl<T>(parent, KtStubElementTypes.VALUE_ARGUMENT), KotlinValueArgumentStub<T> {
-
-    override fun getName(): Name? = StringRef.toString(name)?.let { Name.identifier(it) }
     override fun kind(): ArgumentValueKind = kind
     override fun value(): String? = StringRef.toString(value)
 }

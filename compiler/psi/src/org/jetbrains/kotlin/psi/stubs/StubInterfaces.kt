@@ -22,7 +22,6 @@ import com.intellij.psi.stubs.PsiFileStub
 import com.intellij.psi.stubs.StubElement
 import org.jetbrains.kotlin.lexer.KtModifierKeywordToken
 import org.jetbrains.kotlin.name.FqName
-import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.psi.*
 
 interface KotlinFileStub : PsiFileStub<KtFile> {
@@ -136,11 +135,12 @@ enum class ArgumentValueKind {
 
     CLASS_LITERAL,
 
+    NONE,
+
     OTHER
 }
 
 interface KotlinValueArgumentStub<T : KtValueArgument> : StubElement<T> {
-    fun getName(): Name?
     fun kind(): ArgumentValueKind
     fun value(): String?
 }
