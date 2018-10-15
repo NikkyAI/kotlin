@@ -22,6 +22,7 @@ import com.intellij.psi.stubs.PsiFileStub
 import com.intellij.psi.stubs.StubElement
 import org.jetbrains.kotlin.lexer.KtModifierKeywordToken
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.psi.*
 
 interface KotlinFileStub : PsiFileStub<KtFile> {
@@ -122,6 +123,26 @@ interface KotlinCallableStubBase<TDeclaration : KtCallableDeclaration> : KotlinS
 interface KotlinTypeParameterStub : KotlinStubWithFqName<KtTypeParameter> {
     fun isInVariance(): Boolean
     fun isOutVariance(): Boolean
+}
+
+enum class ArgumentValueKind {
+    NULL,
+    BOOLEAN_CONSTANT,
+    FLOAT_CONSTANT,
+    CHARACTER_CONSTANT,
+    INTEGER_CONSTANT,
+
+    STRING_LITERAL,
+
+    CLASS_LITERAL,
+
+    OTHER
+}
+
+interface KotlinValueArgumentStub<T : KtValueArgument> : StubElement<T> {
+    fun getName(): Name?
+    fun kind(): ArgumentValueKind
+    fun value(): String?
 }
 
 interface KotlinTypeProjectionStub : StubElement<KtTypeProjection> {
