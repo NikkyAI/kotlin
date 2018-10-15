@@ -64,8 +64,8 @@ public interface KtNodeTypes {
     IElementType TYPE_ARGUMENT_LIST                 = KtStubElementTypes.TYPE_ARGUMENT_LIST;
     IElementType VALUE_ARGUMENT_LIST                = KtStubElementTypes.VALUE_ARGUMENT_LIST;
     IElementType VALUE_ARGUMENT                     = KtStubElementTypes.VALUE_ARGUMENT;
-    KtNodeType LAMBDA_ARGUMENT                     = new KtNodeType("LAMBDA_ARGUMENT", KtLambdaArgument.class);
-    KtNodeType VALUE_ARGUMENT_NAME                 = new KtNodeType("VALUE_ARGUMENT_NAME", KtValueArgumentName.class);
+    KtNodeType LAMBDA_ARGUMENT                      = new KtNodeType("LAMBDA_ARGUMENT", KtLambdaArgument.class);
+    IElementType VALUE_ARGUMENT_NAME                = KtStubElementTypes.VALUE_ARGUMENT_NAME;
     IElementType TYPE_REFERENCE                     = KtStubElementTypes.TYPE_REFERENCE;
 
     IElementType USER_TYPE                = KtStubElementTypes.USER_TYPE;
