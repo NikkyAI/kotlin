@@ -8,7 +8,7 @@ package org.jetbrains.kotlin.psi;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.kotlin.psi.stubs.KotlinValueArgumentStub;
+import org.jetbrains.kotlin.psi.stubs.KotlinPlaceHolderStub;
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes;
 
 public class KtLambdaArgument extends KtValueArgument implements LambdaArgument {
@@ -16,7 +16,7 @@ public class KtLambdaArgument extends KtValueArgument implements LambdaArgument 
         super(node);
     }
 
-    public KtLambdaArgument(@NotNull KotlinValueArgumentStub<KtLambdaArgument> stub) {
+    public KtLambdaArgument(@NotNull KotlinPlaceHolderStub<KtLambdaArgument> stub) {
         super(stub, KtStubElementTypes.LAMBDA_ARGUMENT);
     }
 
