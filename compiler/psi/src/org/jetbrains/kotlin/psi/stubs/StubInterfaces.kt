@@ -124,27 +124,6 @@ interface KotlinTypeParameterStub : KotlinStubWithFqName<KtTypeParameter> {
     fun isOutVariance(): Boolean
 }
 
-enum class ArgumentValueKind {
-    NULL,
-    BOOLEAN_CONSTANT,
-    FLOAT_CONSTANT,
-    CHARACTER_CONSTANT,
-    INTEGER_CONSTANT,
-
-    STRING_LITERAL,
-
-    CLASS_LITERAL,
-
-    NONE,
-
-    OTHER
-}
-
-interface KotlinValueArgumentStub<T : KtValueArgument> : StubElement<T> {
-    fun kind(): ArgumentValueKind
-    fun value(): String?
-}
-
 enum class ConstantValueKind {
     NULL,
     BOOLEAN_CONSTANT,
