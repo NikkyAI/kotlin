@@ -145,6 +145,19 @@ interface KotlinValueArgumentStub<T : KtValueArgument> : StubElement<T> {
     fun value(): String?
 }
 
+enum class ConstantValueKind {
+    NULL,
+    BOOLEAN_CONSTANT,
+    FLOAT_CONSTANT,
+    CHARACTER_CONSTANT,
+    INTEGER_CONSTANT
+}
+
+interface KotlinConstantExpressionStub : StubElement<KtConstantExpression> {
+    fun kind(): ConstantValueKind
+    fun value(): String?
+}
+
 interface KotlinTypeProjectionStub : StubElement<KtTypeProjection> {
     fun getProjectionKind(): KtProjectionKind
 }

@@ -10,87 +10,71 @@ import com.intellij.psi.stubs.StubInputStream
 import com.intellij.psi.stubs.StubOutputStream
 import com.intellij.util.io.StringRef
 import org.jetbrains.annotations.NonNls
-import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.psi.KtConstantExpression
-import org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry
-import org.jetbrains.kotlin.psi.KtStringTemplateExpression
-import org.jetbrains.kotlin.psi.KtValueArgument
-import org.jetbrains.kotlin.psi.stubs.ArgumentValueKind
-import org.jetbrains.kotlin.psi.stubs.KotlinValueArgumentStub
-import org.jetbrains.kotlin.psi.stubs.impl.KotlinValueArgumentStubImpl
+import org.jetbrains.kotlin.psi.stubs.ConstantValueKind
+import org.jetbrains.kotlin.psi.stubs.KotlinConstantExpressionStub
+import org.jetbrains.kotlin.psi.stubs.impl.KotlinConstantExpressionStubImpl
 
-class KtConstantExpressionElementType<T : KtValueArgument>(@NonNls debugName: String, psiClass: Class<T>) :
-    KtStubElementType<KotlinValueArgumentStub<T>, T>(debugName, psiClass, KotlinValueArgumentStub::class.java) {
+class KtConstantExpressionElementType(@NonNls debugName: String) :
+    KtStubElementType<KotlinConstantExpressionStub, KtConstantExpression>(
+        debugName,
+        KtConstantExpression::class.java,
+        KotlinConstantExpressionStub::class.java
+    ) {
 
-    override fun createStub(psi: T, parentStub: StubElement<*>?): KotlinValueArgumentStub<T> {
-        val argumentValue = getArgumentValue(psi)
+    override fun createStub(psi: KtConstantExpression, parentStub: StubElement<*>?): KotlinConstantExpressionStub {
+        val elementType = psi.node.elementType as? KtConstantExpressionElementType
+            ?: throw IllegalStateException("Stub element type is expected for constant")
 
-        return KotlinValueArgumentStubImpl(
+        val value = psi.text
+
+        return KotlinConstantExpressionStubImpl(
             parentStub,
-            argumentValue.kind,
-            StringRef.fromString(argumentValue.value)
+            elementType,
+            constantElementTypeToKind(elementType),
+            StringRef.fromString(value)
         )
     }
 
-    override fun serialize(stub: KotlinValueArgumentStub<T>, dataStream: StubOutputStream) {
+    override fun serialize(stub: KotlinConstantExpressionStub, dataStream: StubOutputStream) {
         dataStream.writeInt(stub.kind().ordinal)
         dataStream.writeName(stub.value())
     }
 
-    override fun deserialize(dataStream: StubInputStream, parentStub: StubElement<*>?): KotlinValueArgumentStub<T> {
+    override fun deserialize(dataStream: StubInputStream, parentStub: StubElement<*>?): KotlinConstantExpressionStub {
         val kindOrdinal = dataStream.readInt()
         val value = dataStream.readName()
-        return KotlinValueArgumentStubImpl(
+
+        val valueKind = ConstantValueKind.values()[kindOrdinal]
+
+        return KotlinConstantExpressionStubImpl(
             parentStub,
-            ArgumentValueKind.values()[kindOrdinal],
+            kindToConstantElementType(valueKind),
+            valueKind,
             value
         )
     }
 
     companion object {
-        private class ArgumentValue(val kind: ArgumentValueKind, val value: String?)
-
-        private val NONE_ARGUMENT_VALUE = ArgumentValue(ArgumentValueKind.NONE, null)
-        private val OTHER_ARGUMENT_VALUE = ArgumentValue(ArgumentValueKind.OTHER, null)
-        private val NULL_ARGUMENT_VALUE = ArgumentValue(ArgumentValueKind.NULL, null)
-
-        private fun getArgumentValue(argumentValue: KtValueArgument): ArgumentValue {
-            val argumentExpression = argumentValue.getArgumentExpression() ?: return NONE_ARGUMENT_VALUE
-
-            when (argumentExpression) {
-                is KtStringTemplateExpression -> {
-                    val singleEntry =
-                        argumentExpression.entries.singleOrNull() as? KtLiteralStringTemplateEntry ?: return NONE_ARGUMENT_VALUE
-                    return ArgumentValue(ArgumentValueKind.STRING_LITERAL, singleEntry.text)
-                }
-
-                is KtConstantExpression -> {
-                    return when (argumentExpression.node.elementType) {
-                        KtNodeTypes.NULL -> NULL_ARGUMENT_VALUE
-
-                        KtNodeTypes.BOOLEAN_CONSTANT -> {
-                            ArgumentValue(ArgumentValueKind.BOOLEAN_CONSTANT, argumentExpression.text)
-                        }
-
-                        KtNodeTypes.INTEGER_CONSTANT -> {
-                            ArgumentValue(ArgumentValueKind.INTEGER_CONSTANT, argumentExpression.text)
-                        }
-
-                        KtNodeTypes.FLOAT_CONSTANT -> {
-                            ArgumentValue(ArgumentValueKind.FLOAT_CONSTANT, argumentExpression.text)
-                        }
-
-                        KtNodeTypes.CHARACTER_CONSTANT -> {
-                            ArgumentValue(ArgumentValueKind.CHARACTER_CONSTANT, argumentExpression.text)
-                        }
-
-                        else -> OTHER_ARGUMENT_VALUE
-                    }
-
-                }
+        fun kindToConstantElementType(kind: ConstantValueKind): KtConstantExpressionElementType {
+            return when (kind) {
+                ConstantValueKind.NULL -> KtStubElementTypes.NULL
+                ConstantValueKind.BOOLEAN_CONSTANT -> KtStubElementTypes.BOOLEAN_CONSTANT
+                ConstantValueKind.FLOAT_CONSTANT -> KtStubElementTypes.FLOAT_CONSTANT
+                ConstantValueKind.CHARACTER_CONSTANT -> KtStubElementTypes.CHARACTER_CONSTANT
+                ConstantValueKind.INTEGER_CONSTANT -> KtStubElementTypes.INTEGER_CONSTANT
             }
+        }
 
-            return OTHER_ARGUMENT_VALUE
+        private fun constantElementTypeToKind(elementType: KtConstantExpressionElementType): ConstantValueKind {
+            return when (elementType) {
+                KtStubElementTypes.NULL -> ConstantValueKind.NULL
+                KtStubElementTypes.BOOLEAN_CONSTANT -> ConstantValueKind.BOOLEAN_CONSTANT
+                KtStubElementTypes.INTEGER_CONSTANT -> ConstantValueKind.INTEGER_CONSTANT
+                KtStubElementTypes.FLOAT_CONSTANT -> ConstantValueKind.FLOAT_CONSTANT
+                KtStubElementTypes.CHARACTER_CONSTANT -> ConstantValueKind.CHARACTER_CONSTANT
+                else -> throw IllegalStateException("Unknown constant node type: $elementType")
+            }
         }
     }
 }
