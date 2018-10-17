@@ -19,14 +19,16 @@ package org.jetbrains.kotlin.psi;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.stubs.IStubElementType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub;
+import org.jetbrains.kotlin.psi.stubs.KotlinPlaceHolderWithTextStub;
 
 public abstract class KtStringTemplateEntryWithExpression extends KtStringTemplateEntry {
     public KtStringTemplateEntryWithExpression(@NotNull ASTNode node) {
         super(node);
     }
 
-    public KtStringTemplateEntryWithExpression(@NotNull KotlinStringTemplateEntryStub stub, @NotNull IStubElementType elementType) {
+    public KtStringTemplateEntryWithExpression(
+            @NotNull KotlinPlaceHolderWithTextStub<? extends KtStringTemplateEntryWithExpression> stub,
+            @NotNull IStubElementType elementType) {
         super(stub, elementType);
     }
 

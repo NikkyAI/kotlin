@@ -32,6 +32,10 @@ interface KotlinFileStub : PsiFileStub<KtFile> {
 
 interface KotlinPlaceHolderStub<T : KtElement> : StubElement<T>
 
+interface KotlinPlaceHolderWithTextStub<T : KtElement> : StubElement<T> {
+    fun text(): String
+}
+
 interface KotlinStubWithFqName<T : PsiNamedElement> : NamedStub<T> {
     fun getFqName(): FqName?
 }
@@ -134,18 +138,6 @@ enum class ConstantValueKind {
 
 interface KotlinConstantExpressionStub : StubElement<KtConstantExpression> {
     fun kind(): ConstantValueKind
-    fun value(): String?
-}
-
-enum class StringEntryKind {
-    LONG_STRING_TEMPLATE_ENTRY,
-    SHORT_STRING_TEMPLATE_ENTRY,
-    LITERAL_STRING_TEMPLATE_ENTRY,
-    ESCAPE_STRING_TEMPLATE_ENTRY
-}
-
-interface KotlinStringTemplateEntryStub : StubElement<KtStringTemplateEntry> {
-    fun kind(): StringEntryKind
     fun value(): String?
 }
 

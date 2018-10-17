@@ -18,7 +18,7 @@ package org.jetbrains.kotlin.psi;
 
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub;
+import org.jetbrains.kotlin.psi.stubs.KotlinPlaceHolderWithTextStub;
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes;
 
 public class KtLiteralStringTemplateEntry extends KtStringTemplateEntry {
@@ -26,7 +26,7 @@ public class KtLiteralStringTemplateEntry extends KtStringTemplateEntry {
         super(node);
     }
 
-    public KtLiteralStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub stub) {
+    public KtLiteralStringTemplateEntry(@NotNull KotlinPlaceHolderWithTextStub<KtLiteralStringTemplateEntry> stub) {
         super(stub, KtStubElementTypes.LITERAL_STRING_TEMPLATE_ENTRY);
     }
 
