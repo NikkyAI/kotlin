@@ -137,6 +137,18 @@ interface KotlinConstantExpressionStub : StubElement<KtConstantExpression> {
     fun value(): String?
 }
 
+enum class StringEntryKind {
+    LONG_STRING_TEMPLATE_ENTRY,
+    SHORT_STRING_TEMPLATE_ENTRY,
+    LITERAL_STRING_TEMPLATE_ENTRY,
+    ESCAPE_STRING_TEMPLATE_ENTRY
+}
+
+interface KotlinStringTemplateEntryStub<T : KtStringTemplateEntry<T>> : StubElement<T> {
+    fun kind(): StringEntryKind
+    fun value(): String?
+}
+
 interface KotlinTypeProjectionStub : StubElement<KtTypeProjection> {
     fun getProjectionKind(): KtProjectionKind
 }

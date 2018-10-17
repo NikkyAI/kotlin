@@ -17,12 +17,19 @@
 package org.jetbrains.kotlin.psi;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.stubs.IStubElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub;
 
-public abstract class KtStringTemplateEntry extends KtElementImpl {
+public abstract class KtStringTemplateEntry<T extends KtStringTemplateEntry<T>>
+        extends KtElementImplStub<KotlinStringTemplateEntryStub<T>> {
     public KtStringTemplateEntry(@NotNull ASTNode node) {
         super(node);
+    }
+
+    public KtStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub<T> stub, @NotNull IStubElementType elementType) {
+        super(stub, elementType);
     }
 
     @Nullable

@@ -50,7 +50,7 @@ public class KtStringTemplateExpression extends KtElementImplStub<KotlinPlaceHol
     }
 
     @NotNull
-    public KtStringTemplateEntry[] getEntries() {
+    public KtStringTemplateEntry<?>[] getEntries() {
         return findChildrenByClass(KtStringTemplateEntry.class);
     }
 

@@ -18,10 +18,16 @@ package org.jetbrains.kotlin.psi;
 
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub;
+import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes;
 
-public class KtBlockStringTemplateEntry extends KtStringTemplateEntryWithExpression {
+public class KtBlockStringTemplateEntry extends KtStringTemplateEntryWithExpression<KtBlockStringTemplateEntry> {
     public KtBlockStringTemplateEntry(@NotNull ASTNode node) {
         super(node);
+    }
+
+    public KtBlockStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub<KtBlockStringTemplateEntry> stub) {
+        super(stub, KtStubElementTypes.LONG_STRING_TEMPLATE_ENTRY);
     }
 
     @Override

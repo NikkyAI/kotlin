@@ -16,8 +16,8 @@
 
 package org.jetbrains.kotlin.psi
 
-import com.intellij.psi.LiteralTextEscaper
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.LiteralTextEscaper
 import gnu.trove.TIntArrayList
 import org.jetbrains.kotlin.psi.psiUtil.getContentRange
 import org.jetbrains.kotlin.psi.psiUtil.isSingleQuoted
@@ -29,13 +29,13 @@ class KotlinStringLiteralTextEscaper(host: KtStringTemplateExpression) : Literal
         val sourceOffsetsList = TIntArrayList()
         var sourceOffset = 0
 
-        for (child in myHost.entries) {
+        myHost.entries.forEach { child ->
             val childRange = TextRange.from(child.startOffsetInParent, child.textLength)
             if (rangeInsideHost.endOffset <= childRange.startOffset) {
                 break
             }
             if (childRange.endOffset <= rangeInsideHost.startOffset) {
-                continue
+                return@forEach
             }
             when (child) {
                 is KtEscapeStringTemplateEntry -> {

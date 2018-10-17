@@ -138,6 +138,15 @@ public interface KtStubElementTypes {
     KtPlaceHolderStubElementType<KtStringTemplateExpression> STRING_TEMPLATE =
             new KtStringTemplateExpressionElementType("STRING_TEMPLATE");
 
+    KtStringTemplateEntryElementType<KtBlockStringTemplateEntry> LONG_STRING_TEMPLATE_ENTRY =
+            new KtStringTemplateEntryElementType<>("LONG_STRING_TEMPLATE_ENTRY", KtBlockStringTemplateEntry.class);
+    KtStringTemplateEntryElementType<KtSimpleNameStringTemplateEntry> SHORT_STRING_TEMPLATE_ENTRY =
+            new KtStringTemplateEntryElementType<>("SHORT_STRING_TEMPLATE_ENTRY", KtSimpleNameStringTemplateEntry.class);
+    KtStringTemplateEntryElementType<KtLiteralStringTemplateEntry> LITERAL_STRING_TEMPLATE_ENTRY =
+            new KtStringTemplateEntryElementType<>("LITERAL_STRING_TEMPLATE_ENTRY", KtLiteralStringTemplateEntry.class);
+    KtStringTemplateEntryElementType<KtEscapeStringTemplateEntry> ESCAPE_STRING_TEMPLATE_ENTRY =
+            new KtStringTemplateEntryElementType<>("ESCAPE_STRING_TEMPLATE_ENTRY", KtEscapeStringTemplateEntry.class);
+
     KtScriptElementType SCRIPT = new KtScriptElementType("SCRIPT");
 
     TokenSet DECLARATION_TYPES =
