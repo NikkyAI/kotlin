@@ -29,13 +29,13 @@ class KotlinStringLiteralTextEscaper(host: KtStringTemplateExpression) : Literal
         val sourceOffsetsList = TIntArrayList()
         var sourceOffset = 0
 
-        myHost.entries.forEach { child ->
+        for (child in myHost.entries) {
             val childRange = TextRange.from(child.startOffsetInParent, child.textLength)
             if (rangeInsideHost.endOffset <= childRange.startOffset) {
                 break
             }
             if (childRange.endOffset <= rangeInsideHost.startOffset) {
-                return@forEach
+                continue
             }
             when (child) {
                 is KtEscapeStringTemplateEntry -> {
