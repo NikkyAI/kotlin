@@ -13,12 +13,12 @@ import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub
 import org.jetbrains.kotlin.psi.stubs.StringEntryKind
 import org.jetbrains.kotlin.psi.stubs.elements.KtStringTemplateEntryElementType
 
-class KotlinStringTemplateEntryStubImpl<T : KtStringTemplateEntry<T>>(
+class KotlinStringTemplateEntryStubImpl(
     parent: StubElement<out PsiElement>?,
-    elementType: KtStringTemplateEntryElementType<T>,
+    elementType: KtStringTemplateEntryElementType<*>,
     private val kind: StringEntryKind,
     private val value: StringRef?
-) : KotlinStubBaseImpl<T>(parent, elementType), KotlinStringTemplateEntryStub<T> {
+) : KotlinStubBaseImpl<KtStringTemplateEntry>(parent, elementType), KotlinStringTemplateEntryStub {
     override fun kind(): StringEntryKind = kind
     override fun value(): String? = StringRef.toString(value)
 }

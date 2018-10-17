@@ -22,12 +22,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub;
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes;
 
-public class KtEscapeStringTemplateEntry extends KtStringTemplateEntry<KtEscapeStringTemplateEntry> {
+public class KtEscapeStringTemplateEntry extends KtStringTemplateEntry {
     public KtEscapeStringTemplateEntry(@NotNull ASTNode node) {
         super(node);
     }
 
-    public KtEscapeStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub<KtEscapeStringTemplateEntry> stub) {
+    public KtEscapeStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub stub) {
         super(stub, KtStubElementTypes.ESCAPE_STRING_TEMPLATE_ENTRY);
     }
 

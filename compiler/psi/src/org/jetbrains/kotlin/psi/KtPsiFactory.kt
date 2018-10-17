@@ -393,10 +393,10 @@ class KtPsiFactory @JvmOverloads constructor(private val project: Project, val m
         return whenEntry.conditions[0]
     }
 
-    fun createBlockStringTemplateEntry(expression: KtExpression): KtStringTemplateEntryWithExpression<*> {
+    fun createBlockStringTemplateEntry(expression: KtExpression): KtStringTemplateEntryWithExpression {
         // We don't want reformatting here as it can potentially change something in raw strings
         val stringTemplateExpression = createExpressionByPattern("\"$\${$0}\"", expression, reformat = false) as KtStringTemplateExpression
-        return stringTemplateExpression.entries[0] as KtStringTemplateEntryWithExpression<*>
+        return stringTemplateExpression.entries[0] as KtStringTemplateEntryWithExpression
     }
 
     fun createSimpleNameStringTemplateEntry(name: String): KtSimpleNameStringTemplateEntry {

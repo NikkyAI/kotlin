@@ -22,13 +22,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub;
 
-public abstract class KtStringTemplateEntry<T extends KtStringTemplateEntry<T>>
-        extends KtElementImplStub<KotlinStringTemplateEntryStub<T>> {
+public abstract class KtStringTemplateEntry extends KtElementImplStub<KotlinStringTemplateEntryStub> {
     public KtStringTemplateEntry(@NotNull ASTNode node) {
         super(node);
     }
 
-    public KtStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub<T> stub, @NotNull IStubElementType elementType) {
+    public KtStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub stub, @NotNull IStubElementType elementType) {
         super(stub, elementType);
     }
 

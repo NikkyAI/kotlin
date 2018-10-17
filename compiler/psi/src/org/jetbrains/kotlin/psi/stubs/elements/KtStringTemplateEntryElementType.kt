@@ -16,17 +16,17 @@ import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub
 import org.jetbrains.kotlin.psi.stubs.StringEntryKind
 import org.jetbrains.kotlin.psi.stubs.impl.KotlinStringTemplateEntryStubImpl
 
-class KtStringTemplateEntryElementType<PsiT : KtStringTemplateEntry<PsiT>>(
+class KtStringTemplateEntryElementType<PsiT : KtStringTemplateEntry>(
     @NonNls debugName: String,
     @NotNull psiClass: Class<PsiT>
 ) :
-    KtStubElementType<KotlinStringTemplateEntryStub<PsiT>, PsiT>(
+    KtStubElementType<KotlinStringTemplateEntryStub, PsiT>(
         debugName,
         psiClass,
         KotlinStringTemplateEntryStub::class.java
     ) {
 
-    override fun createStub(psi: PsiT, parentStub: StubElement<*>?): KotlinStringTemplateEntryStub<PsiT> {
+    override fun createStub(psi: PsiT, parentStub: StubElement<*>?): KotlinStringTemplateEntryStub {
         @Suppress("UNCHECKED_CAST")
         val elementType = psi.node.elementType as? KtStringTemplateEntryElementType<PsiT>
             ?: throw IllegalStateException("Stub element type is expected for string entry")
@@ -41,12 +41,12 @@ class KtStringTemplateEntryElementType<PsiT : KtStringTemplateEntry<PsiT>>(
         )
     }
 
-    override fun serialize(stub: KotlinStringTemplateEntryStub<PsiT>, dataStream: StubOutputStream) {
+    override fun serialize(stub: KotlinStringTemplateEntryStub, dataStream: StubOutputStream) {
         dataStream.writeInt(stub.kind().ordinal)
         dataStream.writeName(stub.value())
     }
 
-    override fun deserialize(dataStream: StubInputStream, parentStub: StubElement<*>?): KotlinStringTemplateEntryStub<PsiT> {
+    override fun deserialize(dataStream: StubInputStream, parentStub: StubElement<*>?): KotlinStringTemplateEntryStub {
         val kindOrdinal = dataStream.readInt()
         val value = dataStream.readName()
 

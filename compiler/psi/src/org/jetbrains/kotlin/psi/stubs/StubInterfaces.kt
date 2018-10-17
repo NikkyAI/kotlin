@@ -144,7 +144,7 @@ enum class StringEntryKind {
     ESCAPE_STRING_TEMPLATE_ENTRY
 }
 
-interface KotlinStringTemplateEntryStub<T : KtStringTemplateEntry<T>> : StubElement<T> {
+interface KotlinStringTemplateEntryStub : StubElement<KtStringTemplateEntry> {
     fun kind(): StringEntryKind
     fun value(): String?
 }

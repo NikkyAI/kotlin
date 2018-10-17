@@ -110,10 +110,14 @@ PsiJetFileStubImpl[package=test]
         VALUE_ARGUMENT_LIST
           VALUE_ARGUMENT
             STRING_TEMPLATE
+              LITERAL_STRING_TEMPLATE_ENTRY[kind=LITERAL_STRING_TEMPLATE_ENTRY, value=some]
           VALUE_ARGUMENT
             STRING_TEMPLATE
           VALUE_ARGUMENT
             STRING_TEMPLATE
+              LITERAL_STRING_TEMPLATE_ENTRY[kind=LITERAL_STRING_TEMPLATE_ENTRY, value=H]
+              SHORT_STRING_TEMPLATE_ENTRY[kind=SHORT_STRING_TEMPLATE_ENTRY, value=$CONSTANT]
+                REFERENCE_EXPRESSION[referencedName=CONSTANT]
   CLASS[fqName=test.E, isEnumEntry=false, isInterface=false, isLocal=false, isTopLevel=true, name=E, superNames=[]]
     MODIFIER_LIST[enum]
     CLASS_BODY
@@ -283,6 +287,7 @@ PsiJetFileStubImpl[package=test]
         VALUE_ARGUMENT_LIST
           VALUE_ARGUMENT
             STRING_TEMPLATE
+              LITERAL_STRING_TEMPLATE_ENTRY[kind=LITERAL_STRING_TEMPLATE_ENTRY, value=value]
           VALUE_ARGUMENT
             VALUE_ARGUMENT_NAME
               REFERENCE_EXPRESSION[referencedName=nested]

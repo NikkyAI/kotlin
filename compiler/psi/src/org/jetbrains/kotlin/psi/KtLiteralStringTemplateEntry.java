@@ -21,12 +21,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.kotlin.psi.stubs.KotlinStringTemplateEntryStub;
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes;
 
-public class KtLiteralStringTemplateEntry extends KtStringTemplateEntry<KtLiteralStringTemplateEntry> {
+public class KtLiteralStringTemplateEntry extends KtStringTemplateEntry {
     public KtLiteralStringTemplateEntry(@NotNull ASTNode node) {
         super(node);
     }
 
-    public KtLiteralStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub<KtLiteralStringTemplateEntry> stub) {
+    public KtLiteralStringTemplateEntry(@NotNull KotlinStringTemplateEntryStub stub) {
         super(stub, KtStubElementTypes.LITERAL_STRING_TEMPLATE_ENTRY);
     }
 
