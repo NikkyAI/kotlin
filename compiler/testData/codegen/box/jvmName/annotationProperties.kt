@@ -3,13 +3,10 @@
 // WITH_REFLECT
 
 import kotlin.test.assertEquals
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.jvm.javaGetter
 
 annotation class Anno(@get:JvmName("uglyJvmName") val value: String)
-
-@Anno(value = "OK")
-class Foo
-
-
 annotation class Meta(val anno: Anno)
 
 @Meta(Anno(value = "OK"))
@@ -17,13 +14,11 @@ fun bar() {}
 
 
 fun box(): String {
-    val f = Foo::class.annotations.single()
-    assertEquals("@Anno(uglyJvmName=OK)", f.toString())
-    assertEquals("OK", (f as Anno).value)
+    val property = Anno::class.declaredMemberProperties.single()
+    assertEquals("value", property.name)
+    assertEquals("uglyJvmName", property.javaGetter!!.name)
 
-    val b = ::bar.annotations.single()
-    assertEquals("@Meta(anno=@Anno(uglyJvmName=OK))", b.toString())
-    assertEquals("OK", (b as Meta).anno.value)
+    val b = ::bar.annotations.single() as Meta
 
-    return "OK"
+    return b.anno.value
 }
