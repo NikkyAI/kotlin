@@ -80,6 +80,9 @@ abstract class AbstractLocalInspectionTest : KotlinLightCodeInsightFixtureTestCa
         }
 
         val className = FileUtil.loadFile(candidateFiles[0]).trim { it <= ' ' }
+        if ("UnusedSymbolInspection" in className) {
+            return UnusedSymbolInspection()
+        }
         return Class.forName(className).newInstance() as AbstractKotlinInspection
     }
 
