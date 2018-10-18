@@ -26,20 +26,33 @@ class PsiCheckerCustomTest : AbstractPsiCheckerTest() {
         EntryPointsManagerBase.getInstance(project).ADDITIONAL_ANNOTATIONS.add(testAnnotation)
         try {
             doTest(getTestDataFile("noUnusedParameterWhenCustom.kt"))
+        } finally {
+            EntryPointsManagerBase.getInstance(project).ADDITIONAL_ANNOTATIONS.remove(testAnnotation)
         }
-        finally {
+    }
+
+    fun testUnusedParameterInEntry13() {
+        val testAnnotation = "MyTestAnnotation"
+        EntryPointsManagerBase.getInstance(project).ADDITIONAL_ANNOTATIONS.add(testAnnotation)
+        try {
+            doTest(getTestDataFile("noUnusedParameterWhenCustom.kt"))
+        } finally {
             EntryPointsManagerBase.getInstance(project).ADDITIONAL_ANNOTATIONS.remove(testAnnotation)
         }
     }
 
     fun testConflictingOverloadsMultifile1() {
-        doTest(getTestDataFile("conflictingOverloadsMultifile1a.kt"),
-               getTestDataFile("conflictingOverloadsMultifile1b.kt"))
+        doTest(
+            getTestDataFile("conflictingOverloadsMultifile1a.kt"),
+            getTestDataFile("conflictingOverloadsMultifile1b.kt")
+        )
     }
 
     fun testConflictingOverloadsMultifile2() {
-        doTest(getTestDataFile("conflictingOverloadsMultifile2a.kt"),
-               getTestDataFile("conflictingOverloadsMultifile2b.kt"))
+        doTest(
+            getTestDataFile("conflictingOverloadsMultifile2a.kt"),
+            getTestDataFile("conflictingOverloadsMultifile2b.kt")
+        )
     }
 
     private fun getTestDataFile(localName: String) = "idea/testData/checker/custom/$localName"
